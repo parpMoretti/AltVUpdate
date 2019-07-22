@@ -1,0 +1,18 @@
+﻿<Window x:Class="AltVUpdate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AltVUpdate"
+        mc:Ignorable="d"
+        Title="AltV Server Update Utility" Height="450" Width="800">
+    <Canvas Background="#4E753E">
+        <Menu Height="20" Width="792" x:Name="MainMenu" IsMainMenu="True" Background="#4E753E" VerticalAlignment="Top">
+            <MenuItem x:Name="FileItem" Header="File" Foreground="White" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                <MenuItem x:Name="ConfigItem" Header="Settings" Background="#4E753E" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="ConfigItem_OnClick" />
+                <MenuItem x:Name="CloseItem" Header="Close" Background="#4E753E" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="CloseItem_OnClick" />
+            </MenuItem>
+        </Menu>
+        <Button Content="Update Server" Canvas.Left="353" Canvas.Top="198" Width="86" x:Name="UpdateConfigButton" Click="UpdateConfigButton_OnClick" />
+    </Canvas>
+</Window>

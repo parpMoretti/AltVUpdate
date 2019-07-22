@@ -1,0 +1,19 @@
+﻿<Window x:Class="AltVUpdate.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AltVUpdate"
+        mc:Ignorable="d"
+        Title="Settings" Height="450" Width="800">
+    <Canvas Background="#4E753E">
+        <Label Content="_Branch" Foreground="White" Canvas.Left="295" Canvas.Top="136"></Label>
+        <ComboBox Canvas.Left="346" Canvas.Top="136" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center" Name="BuildBox" />
+        <Label Content="_Working Directory" Foreground="White" Canvas.Left="235" Canvas.Top="177"></Label>
+        <TextBox Height="24" Canvas.Left="346" TextWrapping="Wrap" Text="" Canvas.Top="178" Width="120" x:Name="DirectoryBox" IsReadOnly="True" />
+        <Button Content="Browse" Canvas.Left="471" Canvas.Top="180" Width="75" x:Name="DirectoryBrowseButton" Click="DirectoryBrowseButton_OnClick" />
+        <Button Content="Save Config" Canvas.Left="368" Canvas.Top="292" Width="76" x:Name="SaveConfigButton" Click="SaveConfigButton_OnClick" />
+        <CheckBox x:Name="CSharpBox" Content="C# Module" Foreground="White" Canvas.Left="366" Canvas.Top="216" />
+        <CheckBox x:Name="NodeBox" Content="NodeJS Module" Foreground="White" Canvas.Left="354" Canvas.Top="244" />
+    </Canvas>
+</Window>
