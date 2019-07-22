@@ -7,6 +7,7 @@ F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\bin\Re
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\bin\Release\Newtonsoft.Json.dll
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\bin\Release\AvalonLibrary.xml
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\bin\Release\Newtonsoft.Json.xml
+F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\AltVUpdate.csprojAssemblyReference.cache
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\MainWindow.g.cs
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\Settings.g.cs
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\App.g.cs
@@ -23,3 +24,4 @@ F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Re
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\AltVUpdate.csproj.CopyComplete
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\AltVUpdate.exe
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\AltVUpdate.pdb
+F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Release\AltVUpdate_Content.g.cs

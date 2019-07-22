@@ -27,7 +27,6 @@ namespace AltVUpdate
                 Debug.WriteLine("Settings File Not Found");
 
                 Setting newSettings = new Setting();
-
                 using (StreamWriter streamWriter = new StreamWriter("settings.json"))
                 {
                     Debug.WriteLine("Settings File Created (StreamWriter)");
