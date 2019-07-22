@@ -52,7 +52,7 @@ namespace AltVUpdate
                 {
                     if (File.Exists($"{settings.Directory}/altv-server.exe.old"))
                     {
-                        File.Delete($"{settings.Directory}/altv-server.exe.old");
+                        File.Delete($"{settings.Directory}/altv- erver.exe.old");
                     }
 
                     File.Move($"{settings.Directory}/altv-server.exe", $"{settings.Directory}/altv-server.exe.old");
