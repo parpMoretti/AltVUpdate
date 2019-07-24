@@ -68,6 +68,31 @@ namespace AltVUpdate
                     }
                 }
 
+                if (currentUpdate != null)
+                {
+                    using (WebClient wc = new WebClient())
+                    {
+                        string newUpdateString = string.Format("https://cdn.altv.mp/server/{0}/x64_win32/", settings.Branch.ToLower());
+
+                        var updateJson = wc.DownloadString($"{newUpdateString}update.json");
+
+                        wc.Dispose();
+
+                        Update updateInfo = JsonConvert.DeserializeObject<Update>(updateJson);
+
+                        if (updateInfo.LatestBuildNumber == currentUpdate.LatestBuildNumber)
+                        {
+                            MessageBoxResult result = MessageBox.Show(
+                                $"You have the latest version!\nDo you wish to continue?", "Latest Version",
+                                MessageBoxButton.YesNo, MessageBoxImage.Information);
+                            if (result == MessageBoxResult.No)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 string downloadString = string.Format("https://cdn.altv.mp/server/{0}/x64_win32/", settings.Branch.ToLower());
 
                 using (WebClient webClient = new WebClient())
@@ -251,6 +276,74 @@ namespace AltVUpdate
             }
 
             MessageBox.Show($"Server Started!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void RemoveOldBuildsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Setting settings = Setting.FetchSettings();
+
+                int count = 0;
+
+                if (Directory.Exists($"{settings.Directory}\\modules"))
+                {
+                    foreach (var file in Directory.GetFiles($"{settings.Directory}\\modules"))
+                    {
+                        if (file != $"{settings.Directory}\\modules\\csharp-module.dll")
+                        {
+                            if (file != $"{settings.Directory}\\modules\\node-module.dll")
+                            {
+#if DEBUG
+                                using (var writer = File.AppendText("debug.log"))
+                                {
+                                    writer.WriteLine(file);
+                                    writer.Dispose();
+                                }
+#endif
+                                File.Delete(file);
+
+                                count++;
+                            }
+                        }
+                    }
+                }
+
+                if (Directory.Exists($"{settings.Directory}\\data"))
+                {
+                    foreach (var file in Directory.GetFiles($"{settings.Directory}\\data"))
+                    {
+                        if (file != $"{settings.Directory}\\data\\vehmodels.bin")
+                        {
+                            if (file != $"{settings.Directory}\\data\\vehmods.bin")
+                            {
+                                File.Delete(file);
+                                count++;
+                            }
+                        }
+                    }
+                }
+
+                if (Directory.Exists($"{settings.Directory}"))
+                {
+                    foreach (var file in Directory.GetFiles($"{settings.Directory}"))
+                    {
+                        if (file.Contains("altv-server.exe") && file != $"{settings.Directory}\\altv-server.exe")
+                        {
+                            File.Delete(file);
+                            count++;
+                        }
+                    }
+                }
+
+                MessageBox.Show($"Successfully cleaned {count} items.");
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($"{exception.Message}");
+                File.WriteAllText("crash.log", $"Message: {exception.Message}\nStack: {exception.StackTrace}\nSource: {exception.Source}");
+                this.Close();
+            }
         }
     }
 }

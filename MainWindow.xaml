@@ -13,8 +13,9 @@
                 <MenuItem x:Name="CloseItem" Header="Close" Background="#4E753E" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="CloseItem_OnClick" />
             </MenuItem>
         </Menu>
-        <Button Content="Update Server" Canvas.Left="353" Canvas.Top="198" Width="86" x:Name="UpdateConfigButton" Click="UpdateConfigButton_OnClick" />
+        <Button Content="Update Server" Canvas.Left="353" Canvas.Top="200" Width="86" x:Name="UpdateConfigButton" Click="UpdateConfigButton_OnClick" />
         <Button Content="Stop Server" Canvas.Left="353" Canvas.Top="162" Width="86" x:Name="StopServerButton" Click="StopServerButton_OnClick" />
         <Button Content="Start Server" Canvas.Left="353" Canvas.Top="238" Width="86" x:Name="StartServerButton" Click="StartServerButton_OnClick" />
+        <Button Content="Remove old builds" Canvas.Left="340" Canvas.Top="277" Width="112" x:Name="RemoveOldBuildsButton" Click="RemoveOldBuildsButton_OnClick" />
     </Canvas>
 </Window>
