@@ -4,7 +4,7 @@
   <description asmv2:iconFile="v_logo.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="AltVUpdate" version="1.0.203.35" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="AltVUpdate" version="1.0.205.1" language="neutral" processorArchitecture="msil" />
     <commandLine file="AltVUpdate.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AltVUpdate.exe" size="30696">
-      <assemblyIdentity name="AltVUpdate" version="1.0.203.35" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AltVUpdate.exe" size="33256">
+      <assemblyIdentity name="AltVUpdate" version="1.0.205.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>yqlOHjJ71Mr2+JGXglWJOgdcOGpexDJgGsXBr3w+IIE=</dsig:DigestValue>
+        <dsig:DigestValue>nh7CyuFC6AxCuuNzXbMXLGxrnyMr49Lux2mCV2VpKsc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -78,13 +78,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="AltVUpdate.exe.config" size="189">
+  <file name="AltVUpdate.exe.config" size="180">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>rl5/qDc7Jz+tB+BIbOv9iMGPlRe6YJwrjmU09dnlPcs=</dsig:DigestValue>
+      <dsig:DigestValue>0Rd61NMF1sg4ek91LwFgi40MLO77FsXJagw/SkPjqt8=</dsig:DigestValue>
     </hash>
   </file>
   <file name="v_logo.ico" size="4286">
@@ -94,6 +94,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>AUOtzRxHgywB0hiX9D6rIoglthPSnunumWn+3BoV1v8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="VisualStudio.gitignore" size="6392">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>AtjseRPu7tD1d6k6eeY2H+qk0FkNSh8SToailSndJvY=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

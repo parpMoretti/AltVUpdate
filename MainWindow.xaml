@@ -14,5 +14,7 @@
             </MenuItem>
         </Menu>
         <Button Content="Update Server" Canvas.Left="353" Canvas.Top="198" Width="86" x:Name="UpdateConfigButton" Click="UpdateConfigButton_OnClick" />
+        <Button Content="Stop Server" Canvas.Left="353" Canvas.Top="162" Width="86" x:Name="StopServerButton" Click="StopServerButton_OnClick" />
+        <Button Content="Start Server" Canvas.Left="353" Canvas.Top="238" Width="86" x:Name="StartServerButton" Click="StartServerButton_OnClick" />
     </Canvas>
 </Window>

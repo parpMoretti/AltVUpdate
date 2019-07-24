@@ -180,5 +180,77 @@ namespace AltVUpdate
                 this.Close();
             }
         }
+
+        private void StopServerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process altVProcess = Process.GetProcesses().FirstOrDefault(x => x.ProcessName.Contains("altv"));
+
+            if (altVProcess != null)
+            {
+                altVProcess.Kill();
+                MessageBox.Show($"Stopping Alt:V Server!\n", "Stopping", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+
+            MessageBox.Show("Unable to find the Alt:V Process!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void StartServerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Process altVProcess = Process.GetProcesses().FirstOrDefault(x => x.ProcessName.Contains("altv"));
+
+            if (altVProcess != null)
+            {
+                MessageBox.Show($"The server is already running!", "Error!", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+
+            Setting currentSettings = Setting.FetchSettings();
+
+            ProcessStartInfo altVStartProcess = new ProcessStartInfo($"{currentSettings.Directory}/altv-server.exe");
+            altVStartProcess.WorkingDirectory = currentSettings.Directory;
+
+            altVProcess = Process.Start(altVStartProcess);
+
+            if (altVProcess == null || !altVProcess.Responding)
+            {
+                MessageBox.Show($"Error starting the server!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            using (WebClient wc = new WebClient())
+            {
+                string downloadString = string.Format("https://cdn.altv.mp/server/{0}/x64_win32/", currentSettings.Branch.ToLower());
+
+                var updateJson = wc.DownloadString($"{downloadString}update.json");
+
+                wc.Dispose();
+
+                Update updateInfo = JsonConvert.DeserializeObject<Update>(updateJson);
+
+                if (File.Exists($"{currentSettings.Directory}/update.json"))
+                {
+                    using (StreamReader streamReader = new StreamReader($"{currentSettings.Directory}/update.json"))
+                    {
+                        var updateString = streamReader.ReadToEnd();
+
+                        streamReader.Dispose();
+
+                        Update currentUpdateInfo = JsonConvert.DeserializeObject<Update>(updateString);
+
+                        if (updateInfo.LatestBuildNumber > currentUpdateInfo.LatestBuildNumber)
+                        {
+                            MessageBox.Show($"Server Started!\nNew build available for branch: {currentSettings.Branch}\nCurrent Build: {currentUpdateInfo.LatestBuildNumber}\nLatest Build: {updateInfo.LatestBuildNumber}",
+                                "Update Available", MessageBoxButton.OK, MessageBoxImage.Information);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            MessageBox.Show($"Server Started!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }

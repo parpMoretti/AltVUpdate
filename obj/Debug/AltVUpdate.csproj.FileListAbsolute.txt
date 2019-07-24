@@ -24,3 +24,4 @@ F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\bin\De
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\bin\Debug\AltVUpdate.application
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Debug\AltVUpdate.exe.manifest
 F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Debug\AltVUpdate.application
+F:\Andrew\Documents\Los Santos V\Development\Gitlab\AltVUpdate\AltVUpdate\obj\Debug\AltVUpdate_Content.g.cs
