@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="AltVUpdate.exe.manifest" size="5713">
+    <dependentAssembly dependencyType="install" codebase="AltVUpdate.exe.manifest" size="5715">
       <assemblyIdentity name="AltVUpdate.exe" version="1.0.0.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>80M/gqYrVdDqfz68vGkQWoLRvd/apRPhL9FPNP4CxYA=</dsig:DigestValue>
+        <dsig:DigestValue>RUe7IsHnKRhFQ+VOESjRqXTw1h5Mr85DnAE8SBj6mxg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
