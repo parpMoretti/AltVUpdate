@@ -27,6 +27,47 @@ namespace AltVUpdate
         public MainWindow()
         {
             InitializeComponent();
+            TextBox.IsReadOnly = true;
+            TextBox.Text = $"[{DateTime.Now}] - Started AltVUpdater - Version 1.4";
+
+            Setting settings = Setting.FetchSettings();
+
+            Update currentUpdate = null;
+
+            if (File.Exists($"{settings.Directory}/update.json"))
+            {
+                using (StreamReader currentStreamReader = new StreamReader($"{settings.Directory}/update.json"))
+                {
+                    var currentUpdateString = currentStreamReader.ReadToEnd();
+
+                    currentUpdate = JsonConvert.DeserializeObject<Update>(currentUpdateString);
+
+                    currentStreamReader.Dispose();
+                }
+            }
+
+            if (currentUpdate != null)
+            {
+                TextBox.Text =
+                    $"{TextBox.Text}\n[{DateTime.Now}] Current AltV Branch: {settings.Branch} - Current Build: {currentUpdate.LatestBuildNumber}";
+
+                using (WebClient wc = new WebClient())
+                {
+                    string newUpdateString = string.Format("https://cdn.altv.mp/server/{0}/x64_win32/", settings.Branch.ToLower());
+
+                    var updateJson = wc.DownloadString($"{newUpdateString}update.json");
+
+                    wc.Dispose();
+
+                    Update updateInfo = JsonConvert.DeserializeObject<Update>(updateJson);
+
+                    if (updateInfo.LatestBuildNumber > currentUpdate.LatestBuildNumber)
+                    {
+                        TextBox.Text =
+                            $"{TextBox.Text}\n[{DateTime.Now}] New Version Available - Build: {updateInfo.LatestBuildNumber}";
+                    }
+                }
+            }
         }
 
         private void ConfigItem_OnClick(object sender, RoutedEventArgs e)
@@ -135,8 +176,7 @@ namespace AltVUpdate
                     }
                     else
                     {
-                        MessageBox.Show($"Unable to download .bin files! Missing /data directory!", "Error",
-                            MessageBoxButton.OK, MessageBoxImage.Error);
+                        TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to download .bin files! Missing /data directory!";
                     }
 
                     if (settings.CSharp == true || settings.Node == true)
@@ -154,7 +194,7 @@ namespace AltVUpdate
 
                                     File.Move($"{settings.Directory}/modules/csharp-module.dll", $"{settings.Directory}/modules/csharp-module.dll.{currentVersion}");
                                 }
-                                webClient.DownloadFile("https://alt-cdn.s3.nl-ams.scw.cloud/coreclr-module/beta/x64_win32/csharp-module.dll", $"{settings.Directory}/modules/csharp-module.dll");
+                                webClient.DownloadFile($"https://alt-cdn.s3.nl-ams.scw.cloud/coreclr-module/beta/x64_win32/csharp-module.dll", $"{settings.Directory}/modules/csharp-module.dll");
                             }
 
                             if (settings.Node == true)
@@ -173,8 +213,7 @@ namespace AltVUpdate
                         }
                         else
                         {
-                            MessageBox.Show($"Unable to download .dll files! Missing /modules directory!", "Error",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to download .dll files! Missing /modules directory!";
                         }
                     }
 
@@ -194,8 +233,7 @@ namespace AltVUpdate
 
                     Update updateInfo = JsonConvert.DeserializeObject<Update>(updateString);
 
-                    MessageBox.Show(
-                        $"Updated AltV Server to {settings.Branch} Branch - Build #{updateInfo.LatestBuildNumber}");
+                    TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Updated AltV Server to {settings.Branch} Branch - Build #{updateInfo.LatestBuildNumber}";
                 }
             }
             catch (Exception exception)
@@ -213,12 +251,11 @@ namespace AltVUpdate
             if (altVProcess != null)
             {
                 altVProcess.Kill();
-                MessageBox.Show($"Stopping Alt:V Server!\n", "Stopping", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Stopping Alt:V Server!";
                 return;
             }
 
-            MessageBox.Show("Unable to find the Alt:V Process!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to find the Alt:V Process!";
         }
 
         private void StartServerButton_OnClick(object sender, RoutedEventArgs e)
@@ -227,8 +264,7 @@ namespace AltVUpdate
 
             if (altVProcess != null)
             {
-                MessageBox.Show($"The server is already running!", "Error!", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] The server is already running!";
                 return;
             }
 
@@ -241,7 +277,7 @@ namespace AltVUpdate
 
             if (altVProcess == null || !altVProcess.Responding)
             {
-                MessageBox.Show($"Error starting the server!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Error starting the server!";
                 return;
             }
 
@@ -267,15 +303,14 @@ namespace AltVUpdate
 
                         if (updateInfo.LatestBuildNumber > currentUpdateInfo.LatestBuildNumber)
                         {
-                            MessageBox.Show($"Server Started!\nNew build available for branch: {currentSettings.Branch}\nCurrent Build: {currentUpdateInfo.LatestBuildNumber}\nLatest Build: {updateInfo.LatestBuildNumber}",
-                                "Update Available", MessageBoxButton.OK, MessageBoxImage.Information);
+                            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Server Started!\nNew build available for branch: {currentSettings.Branch}\nCurrent Build: {currentUpdateInfo.LatestBuildNumber}\nLatest Build: {updateInfo.LatestBuildNumber}";
+
                             return;
                         }
                     }
                 }
             }
-
-            MessageBox.Show($"Server Started!", "Success!", MessageBoxButton.OK, MessageBoxImage.Information);
+            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Server Started!";
         }
 
         private void RemoveOldBuildsButton_OnClick(object sender, RoutedEventArgs e)
@@ -336,11 +371,11 @@ namespace AltVUpdate
                     }
                 }
 
-                MessageBox.Show($"Successfully cleaned {count} items.");
+                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Successfully cleaned {count} items.";
             }
             catch (Exception exception)
             {
-                MessageBox.Show($"{exception.Message}");
+                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] {exception.Message}.";
                 File.WriteAllText("crash.log", $"Message: {exception.Message}\nStack: {exception.StackTrace}\nSource: {exception.Source}");
                 this.Close();
             }
