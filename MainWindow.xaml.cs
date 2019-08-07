@@ -28,7 +28,7 @@ namespace AltVUpdate
         {
             InitializeComponent();
             TextBox.IsReadOnly = true;
-            TextBox.Text = $"[{DateTime.Now}] - Started AltVUpdater - Version 1.4";
+            TextBox.Text = $"[{DateTime.Now}] Started AltVUpdater - Version 1.4";
 
             Setting settings = Setting.FetchSettings();
 
@@ -194,7 +194,12 @@ namespace AltVUpdate
 
                                     File.Move($"{settings.Directory}/modules/csharp-module.dll", $"{settings.Directory}/modules/csharp-module.dll.{currentVersion}");
                                 }
-                                webClient.DownloadFile($"https://alt-cdn.s3.nl-ams.scw.cloud/coreclr-module/beta/x64_win32/csharp-module.dll", $"{settings.Directory}/modules/csharp-module.dll");
+
+                                webClient.DownloadFile(
+                                    settings.Branch.ToLower() == "alpha"
+                                        ? $"https://cdn.altv.mp/coreclr-module/beta/x64_win32/csharp-module.dll"
+                                        : $"https://cdn.altv.mp/coreclr-module/{settings.Branch.ToLower()}/x64_win32/csharp-module.dll",
+                                    $"{settings.Directory}/modules/csharp-module.dll");
                             }
 
                             if (settings.Node == true)
@@ -208,7 +213,7 @@ namespace AltVUpdate
 
                                     File.Move($"{settings.Directory}/modules/node-module.dll", $"{settings.Directory}/modules/node-module.dll.{currentVersion}");
                                 }
-                                webClient.DownloadFile("https://alt-cdn.s3.nl-ams.scw.cloud/node-module/beta/x64_win32/node-module.dll", $"{settings.Directory}/modules/node-module.dll");
+                                webClient.DownloadFile($"https://cdn.altv.mp/node-module/{settings.Branch.ToLower()}/x64_win32/node-module.dll", $"{settings.Directory}/modules/node-module.dll");
                             }
                         }
                         else
@@ -251,11 +256,11 @@ namespace AltVUpdate
             if (altVProcess != null)
             {
                 altVProcess.Kill();
-                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Stopping Alt:V Server!";
+                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Stopping AltV Server!";
                 return;
             }
 
-            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to find the Alt:V Process!";
+            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to find the AltV Process!";
         }
 
         private void StartServerButton_OnClick(object sender, RoutedEventArgs e)

@@ -4,7 +4,7 @@
   <description asmv2:iconFile="v_logo.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="AltVUpdate" version="1.0.208.4" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="AltVUpdate" version="1.0.219.1" language="neutral" processorArchitecture="x86" />
     <commandLine file="AltVUpdate.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AltVUpdate.exe" size="33768">
-      <assemblyIdentity name="AltVUpdate" version="1.0.208.4" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="AltVUpdate" version="1.0.219.1" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Vj/kfFwf/cojWznp717oTqBuET6XLIvFLvqMGWp7mWw=</dsig:DigestValue>
+        <dsig:DigestValue>ofq24QSF8OWKMuJaeuvAL7MN9ucyTR1srgTsBnCctPo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
