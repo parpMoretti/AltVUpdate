@@ -158,8 +158,5 @@
   <ItemGroup>
     <Resource Include="v_logo.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="VisualStudio.gitignore" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
