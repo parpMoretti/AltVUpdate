@@ -136,6 +136,7 @@ namespace AltVUpdate
 
                 using (WebClient webClient = new WebClient())
                 {
+                    // altv-server.exe
                     if (File.Exists($"{settings.Directory}/altv-server.exe"))
                     {
                         if (File.Exists($"{settings.Directory}/altv-server.exe.{currentVersion}"))
@@ -148,8 +149,23 @@ namespace AltVUpdate
 
                     webClient.DownloadFile($"{downloadString}altv-server.exe", $"{settings.Directory}/altv-server.exe");
 
+                    // node.dll
+
+                    if (File.Exists($"{settings.Directory}/node.dll"))
+                    {
+                        if (File.Exists($"{settings.Directory}/node.dll.{currentVersion}"))
+                        {
+                            File.Delete($"{settings.Directory}/node.dll.{currentVersion}");
+                        }
+
+                        File.Move($"{settings.Directory}/node.dll", $"{settings.Directory}/node.dll.{currentVersion}");
+                    }
+
+                    webClient.DownloadFile($"https://cdn.altv.mp/alt-node/node.dll", $"{settings.Directory}/node.dll");
+
                     if (Directory.Exists($"{settings.Directory}/data"))
                     {
+                        //vehmods.bin
                         if (File.Exists($"{settings.Directory}/data/vehmods.bin"))
                         {
                             if (File.Exists($"{settings.Directory}/data/vehmods.bin.{currentVersion}"))
@@ -160,6 +176,7 @@ namespace AltVUpdate
                             File.Move($"{settings.Directory}/data/vehmods.bin", $"{settings.Directory}/data/vehmods.bin.{currentVersion}");
                         }
 
+                        //vehmodels.bin
                         if (File.Exists($"{settings.Directory}/data/vehmodels.bin"))
                         {
                             if (File.Exists($"{settings.Directory}/data/vehmodels.bin.{currentVersion}"))
@@ -183,6 +200,8 @@ namespace AltVUpdate
                         {
                             if (settings.CSharp == true)
                             {
+                                // csharp-module.dll
+
                                 if (File.Exists($"{settings.Directory}/modules/csharp-module.dll"))
                                 {
                                     if (File.Exists($"{settings.Directory}/modules/csharp-module.dll.{currentVersion}"))
@@ -198,10 +217,47 @@ namespace AltVUpdate
                                         ? $"https://cdn.altv.mp/coreclr-module/stable/x64_win32/modules/csharp-module.dll"
                                         : $"https://cdn.altv.mp/coreclr-module/{settings.Branch.ToLower()}/x64_win32/modules/csharp-module.dll",
                                     $"{settings.Directory}/modules/csharp-module.dll");
+
+                                // AltV.Net.Host
+
+                                if (File.Exists($"{settings.Directory}/AltV.Net.Host.dll"))
+                                {
+                                    if (File.Exists($"{settings.Directory}/AltV.Net.Host.dll.{currentVersion}"))
+                                    {
+                                        File.Delete($"{settings.Directory}/AltV.Net.Host.dll.{currentVersion}");
+                                    }
+
+                                    File.Move($"{settings.Directory}/AltV.Net.Host.dll", $"{settings.Directory}/AltV.Net.Host.dll.{currentVersion}");
+                                }
+
+                                webClient.DownloadFile(
+                                    settings.Branch.ToLower() == "alpha"
+                                        ? $"https://cdn.altv.mp/coreclr-module/stable/x64_win32/AltV.Net.Host.dll"
+                                        : $"https://cdn.altv.mp/coreclr-module/{settings.Branch.ToLower()}/x64_win32/AltV.Net.Host.dll",
+                                    $"{settings.Directory}/AltV.Net.Host.dll");
+
+                                // runtimeconfig.json
+
+                                if (File.Exists($"{settings.Directory}/AltV.Net.Host.runtimeconfig.json"))
+                                {
+                                    if (File.Exists($"{settings.Directory}/AltV.Net.Host.runtimeconfig.json.{currentVersion}"))
+                                    {
+                                        File.Delete($"{settings.Directory}/AltV.Net.Host.runtimeconfig.json.{currentVersion}");
+                                    }
+
+                                    File.Move($"{settings.Directory}/AltV.Net.Host.runtimeconfig.json", $"{settings.Directory}/AltV.Net.Host.runtimeconfig.json.{currentVersion}");
+                                }
+
+                                webClient.DownloadFile(
+                                    settings.Branch.ToLower() == "alpha"
+                                        ? $"https://cdn.altv.mp/coreclr-module/stable/x64_win32/AltV.Net.Host.runtimeconfig.json"
+                                        : $"https://cdn.altv.mp/coreclr-module/{settings.Branch.ToLower()}/x64_win32/AltV.Net.Host.runtimeconfig.json",
+                                    $"{settings.Directory}/AltV.Net.Host.runtimeconfig.json");
                             }
 
                             if (settings.Node == true)
                             {
+                                // node-module.dll
                                 if (File.Exists($"{settings.Directory}/modules/node-module.dll"))
                                 {
                                     if (File.Exists($"{settings.Directory}/modules/node-module.dll.{currentVersion}"))
