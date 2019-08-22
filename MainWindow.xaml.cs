@@ -28,7 +28,7 @@ namespace AltVUpdate
         {
             InitializeComponent();
             TextBox.IsReadOnly = true;
-            TextBox.Text = $"[{DateTime.Now}] Started AltVUpdater - Version 1.4";
+            TextBox.AppendText($"\n[{DateTime.Now}] Started AltVUpdater - Version 1.4");
 
             Setting settings = Setting.FetchSettings();
 
@@ -48,8 +48,7 @@ namespace AltVUpdate
 
             if (currentUpdate != null)
             {
-                TextBox.Text =
-                    $"{TextBox.Text}\n[{DateTime.Now}] Current AltV Branch: {settings.Branch} - Current Build: {currentUpdate.LatestBuildNumber}";
+                TextBox.AppendText($"\n[{DateTime.Now}] Current AltV Branch: {settings.Branch} - Current Build: {currentUpdate.LatestBuildNumber}");
 
                 using (WebClient wc = new WebClient())
                 {
@@ -63,8 +62,7 @@ namespace AltVUpdate
 
                     if (updateInfo.LatestBuildNumber > currentUpdate.LatestBuildNumber)
                     {
-                        TextBox.Text =
-                            $"{TextBox.Text}\n[{DateTime.Now}] New Version Available - Build: {updateInfo.LatestBuildNumber}";
+                        TextBox.AppendText($"\n[{DateTime.Now}] New Version Available - Build: {updateInfo.LatestBuildNumber}");
                     }
                 }
             }
@@ -176,7 +174,7 @@ namespace AltVUpdate
                     }
                     else
                     {
-                        TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to download .bin files! Missing /data directory!";
+                        TextBox.AppendText($"\n[{DateTime.Now}] Unable to download .bin files! Missing /data directory!");
                     }
 
                     if (settings.CSharp == true || settings.Node == true)
@@ -197,8 +195,8 @@ namespace AltVUpdate
 
                                 webClient.DownloadFile(
                                     settings.Branch.ToLower() == "alpha"
-                                        ? $"https://cdn.altv.mp/coreclr-module/beta/x64_win32/csharp-module.dll"
-                                        : $"https://cdn.altv.mp/coreclr-module/{settings.Branch.ToLower()}/x64_win32/csharp-module.dll",
+                                        ? $"https://cdn.altv.mp/coreclr-module/stable/x64_win32/modules/csharp-module.dll"
+                                        : $"https://cdn.altv.mp/coreclr-module/{settings.Branch.ToLower()}/x64_win32/modules/csharp-module.dll",
                                     $"{settings.Directory}/modules/csharp-module.dll");
                             }
 
@@ -213,12 +211,12 @@ namespace AltVUpdate
 
                                     File.Move($"{settings.Directory}/modules/node-module.dll", $"{settings.Directory}/modules/node-module.dll.{currentVersion}");
                                 }
-                                webClient.DownloadFile($"https://cdn.altv.mp/node-module/{settings.Branch.ToLower()}/x64_win32/node-module.dll", $"{settings.Directory}/modules/node-module.dll");
+                                webClient.DownloadFile($"https://cdn.altv.mp/node-module/{settings.Branch.ToLower()}/x64_win32/modules/node-module.dll", $"{settings.Directory}/modules/node-module.dll");
                             }
                         }
                         else
                         {
-                            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to download .dll files! Missing /modules directory!";
+                            TextBox.AppendText($"\n[{DateTime.Now}] Unable to download .dll files! Missing /modules directory!");
                         }
                     }
 
@@ -238,7 +236,7 @@ namespace AltVUpdate
 
                     Update updateInfo = JsonConvert.DeserializeObject<Update>(updateString);
 
-                    TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Updated AltV Server to {settings.Branch} Branch - Build #{updateInfo.LatestBuildNumber}";
+                    TextBox.AppendText($"\n[{DateTime.Now}] Updated AltV Server to {settings.Branch} Branch - Build #{updateInfo.LatestBuildNumber}");
                 }
             }
             catch (Exception exception)
@@ -256,11 +254,11 @@ namespace AltVUpdate
             if (altVProcess != null)
             {
                 altVProcess.Kill();
-                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Stopping AltV Server!";
+                TextBox.AppendText($"\n[{DateTime.Now}] Stopping AltV Server!");
                 return;
             }
 
-            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Unable to find the AltV Process!";
+            TextBox.Text = $"[{DateTime.Now}] Unable to find the AltV Process!";
         }
 
         private void StartServerButton_OnClick(object sender, RoutedEventArgs e)
@@ -269,7 +267,7 @@ namespace AltVUpdate
 
             if (altVProcess != null)
             {
-                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] The server is already running!";
+                TextBox.AppendText($"\n[{DateTime.Now}] The server is already running!");
                 return;
             }
 
@@ -282,7 +280,7 @@ namespace AltVUpdate
 
             if (altVProcess == null || !altVProcess.Responding)
             {
-                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Error starting the server!";
+                TextBox.AppendText($"\n[{DateTime.Now}] Error starting the server!");
                 return;
             }
 
@@ -308,14 +306,14 @@ namespace AltVUpdate
 
                         if (updateInfo.LatestBuildNumber > currentUpdateInfo.LatestBuildNumber)
                         {
-                            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Server Started!\nNew build available for branch: {currentSettings.Branch}\nCurrent Build: {currentUpdateInfo.LatestBuildNumber}\nLatest Build: {updateInfo.LatestBuildNumber}";
+                            TextBox.AppendText($"\n[{DateTime.Now}] Server Started!\nNew build available for branch: {currentSettings.Branch}\nCurrent Build: {currentUpdateInfo.LatestBuildNumber}\nLatest Build: {updateInfo.LatestBuildNumber}");
 
                             return;
                         }
                     }
                 }
             }
-            TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Server Started!";
+            TextBox.AppendText($"\n[{ DateTime.Now}] Server Started!");
         }
 
         private void RemoveOldBuildsButton_OnClick(object sender, RoutedEventArgs e)
@@ -376,11 +374,11 @@ namespace AltVUpdate
                     }
                 }
 
-                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] Successfully cleaned {count} items.";
+                TextBox.AppendText($"\n[{DateTime.Now}] Successfully cleaned {count} items.");
             }
             catch (Exception exception)
             {
-                TextBox.Text = $"{TextBox.Text}\n[{DateTime.Now}] {exception.Message}.";
+                TextBox.AppendText($"\n[{DateTime.Now}] {exception.Message}.");
                 File.WriteAllText("crash.log", $"Message: {exception.Message}\nStack: {exception.StackTrace}\nSource: {exception.Source}");
                 this.Close();
             }
