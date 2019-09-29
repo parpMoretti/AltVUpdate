@@ -28,7 +28,7 @@ namespace AltVUpdate
         {
             InitializeComponent();
             TextBox.IsReadOnly = true;
-            TextBox.AppendText($"\n[{DateTime.Now}] Started AltVUpdater - Version 1.4");
+            TextBox.AppendText($"\n[{DateTime.Now}] Started AltVUpdater - Version 1.8");
 
             Setting settings = Setting.FetchSettings();
 
@@ -149,19 +149,19 @@ namespace AltVUpdate
 
                     webClient.DownloadFile($"{downloadString}altv-server.exe", $"{settings.Directory}/altv-server.exe");
 
-                    // node.dll
+                    // libnode.dll
 
-                    if (File.Exists($"{settings.Directory}/node.dll"))
+                    if (File.Exists($"{settings.Directory}/libnode.dll"))
                     {
-                        if (File.Exists($"{settings.Directory}/node.dll.{currentVersion}"))
+                        if (File.Exists($"{settings.Directory}/libnode.dll.{currentVersion}"))
                         {
-                            File.Delete($"{settings.Directory}/node.dll.{currentVersion}");
+                            File.Delete($"{settings.Directory}/libnode.dll.{currentVersion}");
                         }
 
-                        File.Move($"{settings.Directory}/node.dll", $"{settings.Directory}/node.dll.{currentVersion}");
+                        File.Move($"{settings.Directory}/nolibnodede.dll", $"{settings.Directory}/libnode.dll.{currentVersion}");
                     }
 
-                    webClient.DownloadFile($"https://cdn.altv.mp/alt-node/node.dll", $"{settings.Directory}/node.dll");
+                    webClient.DownloadFile($"https://cdn.altv.mp/node-module/{settings.Branch.ToLower()}/x64_win32/libnode.dll", $"{settings.Directory}/libnode.dll");
 
                     if (Directory.Exists($"{settings.Directory}/data"))
                     {
@@ -314,7 +314,7 @@ namespace AltVUpdate
                 return;
             }
 
-            TextBox.Text = $"[{DateTime.Now}] Unable to find the AltV Process!";
+            TextBox.AppendText($"\n[{DateTime.Now}] Unable to find the AltV Process!");
         }
 
         private void StartServerButton_OnClick(object sender, RoutedEventArgs e)
@@ -384,21 +384,31 @@ namespace AltVUpdate
                 {
                     foreach (var file in Directory.GetFiles($"{settings.Directory}\\modules"))
                     {
-                        if (file != $"{settings.Directory}\\modules\\csharp-module.dll")
+                        if (file.Contains($"{settings.Directory}\\modules\\csharp-module.dll."))
                         {
-                            if (file != $"{settings.Directory}\\modules\\node-module.dll")
-                            {
 #if DEBUG
-                                using (var writer = File.AppendText("debug.log"))
-                                {
-                                    writer.WriteLine(file);
-                                    writer.Dispose();
-                                }
-#endif
-                                File.Delete(file);
-
-                                count++;
+                            using (var writer = File.AppendText("debug.log"))
+                            {
+                                writer.WriteLine(file);
+                                writer.Dispose();
                             }
+#endif
+                            File.Delete(file);
+
+                            count++;
+                        }
+                        if (file.Contains($"{settings.Directory}\\modules\\node-module.dll."))
+                        {
+#if DEBUG
+                            using (var writer = File.AppendText("debug.log"))
+                            {
+                                writer.WriteLine(file);
+                                writer.Dispose();
+                            }
+#endif
+                            File.Delete(file);
+
+                            count++;
                         }
                     }
                 }
@@ -407,13 +417,15 @@ namespace AltVUpdate
                 {
                     foreach (var file in Directory.GetFiles($"{settings.Directory}\\data"))
                     {
-                        if (file != $"{settings.Directory}\\data\\vehmodels.bin")
+                        if (file.Contains($"{settings.Directory}\\data\\vehmodels.bin."))
                         {
-                            if (file != $"{settings.Directory}\\data\\vehmods.bin")
-                            {
-                                File.Delete(file);
-                                count++;
-                            }
+                            File.Delete(file);
+                            count++;
+                        }
+                        if (file.Contains($"{settings.Directory}\\data\\vehmods.bin."))
+                        {
+                            File.Delete(file);
+                            count++;
                         }
                     }
                 }
@@ -423,6 +435,12 @@ namespace AltVUpdate
                     foreach (var file in Directory.GetFiles($"{settings.Directory}"))
                     {
                         if (file.Contains("altv-server.exe") && file != $"{settings.Directory}\\altv-server.exe")
+                        {
+                            File.Delete(file);
+                            count++;
+                        }
+
+                        if (file.Contains("AltV.Net.Host.dll.") || file.Contains("AltV.Net.Host.runtimeconfig.") || file.Contains("node.dll."))
                         {
                             File.Delete(file);
                             count++;
