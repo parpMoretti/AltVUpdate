@@ -158,7 +158,7 @@ namespace AltVUpdate
                             File.Delete($"{settings.Directory}/libnode.dll.{currentVersion}");
                         }
 
-                        File.Move($"{settings.Directory}/nolibnodede.dll", $"{settings.Directory}/libnode.dll.{currentVersion}");
+                        File.Move($"{settings.Directory}/libnode.dll", $"{settings.Directory}/libnode.dll.{currentVersion}");
                     }
 
                     webClient.DownloadFile($"https://cdn.altv.mp/node-module/{settings.Branch.ToLower()}/x64_win32/libnode.dll", $"{settings.Directory}/libnode.dll");

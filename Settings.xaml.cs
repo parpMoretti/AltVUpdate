@@ -26,9 +26,9 @@ namespace AltVUpdate
             Task.Delay(300);
             InitializeComponent();
 
-            BuildBox.Items.Add("Stable");
-            BuildBox.Items.Add("Beta");
-            BuildBox.Items.Add("Alpha");
+            BuildBox.Items.Add("Release");
+            BuildBox.Items.Add("RC");
+            BuildBox.Items.Add("Dev");
 
             BuildBox.SelectedItem = currentSettings.Branch;
             DirectoryBox.MouseDoubleClick += DirectoryBrowseButton_OnClick;
