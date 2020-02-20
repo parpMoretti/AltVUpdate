@@ -1,5 +1,5 @@
-# AltVUpdate
-A windows server update utility for the AltV Platform
+# alt:V Update Tool
+A windows server update utility for the alt:V Platform
 
 ## Usage
 
