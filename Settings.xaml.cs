@@ -22,7 +22,6 @@ namespace AltVUpdate
     {
         public Settings()
         {
-            Setting currentSettings = Setting.FetchSettings();
             Task.Delay(300);
             InitializeComponent();
 
@@ -30,11 +29,11 @@ namespace AltVUpdate
             BuildBox.Items.Add("RC");
             BuildBox.Items.Add("Dev");
 
-            BuildBox.SelectedItem = currentSettings.Branch;
+            BuildBox.SelectedItem = User.Default.Branch;
             DirectoryBox.MouseDoubleClick += DirectoryBrowseButton_OnClick;
-            DirectoryBox.Text = currentSettings.Directory;
-            CSharpBox.IsChecked = currentSettings.CSharp;
-            NodeBox.IsChecked = currentSettings.Node;
+            DirectoryBox.Text = User.Default.Directory;
+            CSharpBox.IsChecked = User.Default.CSharp;
+            NodeBox.IsChecked = User.Default.NodeJs;
         }
 
         private void DirectoryBrowseButton_OnClick(object sender, RoutedEventArgs e)
@@ -54,14 +53,17 @@ namespace AltVUpdate
         {
             Mouse.OverrideCursor = Cursors.Wait;
 
-            Setting currentSettings = new Setting();
+            User.Default.Branch = BuildBox.SelectedItem.ToString();
+            User.Default.Directory = DirectoryBox.Text;
 
-            currentSettings.Branch = BuildBox.SelectedItem.ToString();
-            currentSettings.Directory = DirectoryBox.Text;
-            currentSettings.CSharp = CSharpBox.IsChecked;
-            currentSettings.Node = NodeBox.IsChecked;
+            bool isUsingCSharp = CSharpBox.IsChecked ?? false;
+            bool isUsingNodeJs = NodeBox.IsChecked ?? false;
 
-            Setting.SaveSettings(currentSettings);
+            User.Default.CSharp = isUsingCSharp;
+            User.Default.NodeJs = isUsingNodeJs;
+
+            User.Default.Save();
+            User.Default.Reload();
 
             Mouse.OverrideCursor = null;
 
